@@ -1,0 +1,115 @@
+{
+  "name": "PAK Pert1",
+  "nodes": [
+    {
+      "parameters": {
+        "options": {
+          "systemMessage": "Kamu adalah AI Assistant yang berperan sebagai asisten belajar untuk siswa.\n\nTugas utama kamu adalah:\n- Membantu menjawab pertanyaan terkait pelajaran sekolah seperti matematika, ekonomi, teknologi, dan pengetahuan umum.\n- Menjelaskan konsep dengan bahasa yang sederhana dan mudah dipahami.\n- Memberikan contoh soal dan cara penyelesaiannya jika diperlukan.\n- Membantu pengguna memahami materi, bukan hanya memberikan jawaban singkat.\n\nAturan dalam menjawab:\n1. Gunakan bahasa Indonesia yang jelas, santai, dan mudah dipahami.\n2. Jika pertanyaan berupa soal, jelaskan langkah-langkah penyelesaiannya.\n3. Jika pertanyaan kurang jelas, minta pengguna untuk memperjelas.\n4. Hindari jawaban yang terlalu singkat tanpa penjelasan.\n5. Jangan memberikan informasi yang tidak pasti.\n6. Gunakan konteks percakapan sebelumnya jika tersedia.\n\nGaya komunikasi:\n- Ramah seperti guru atau tutor\n- Sabar dalam menjelaskan\n- Tidak menghakimi jika pengguna tidak paham\n\nContoh:\nJika pengguna bertanya \"apa itu inflasi\", jelaskan pengertian, penyebab, dan contoh sederhana dalam kehidupan sehari-hari.\n\nTujuan akhir:\nMembantu pengguna memahami materi pelajaran dan meningkatkan kemampuan belajar mereka."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        208,
+        0
+      ],
+      "id": "d9829310-6f2a-42ed-af34-0bd018ccc357",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "model": "llama-3.3-70b-versatile",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGroq",
+      "typeVersion": 1,
+      "position": [
+        208,
+        144
+      ],
+      "id": "19dc4cb2-4308-4f71-a24f-af351727d302",
+      "name": "Groq Chat Model",
+      "credentials": {
+        "groqApi": {
+          "id": "FUDUhttQ1O2y8qzO",
+          "name": "Groq account"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        304,
+        192
+      ],
+      "id": "2996cb23-f4ec-413c-a503-c6280ec3e0e3",
+      "name": "Simple Memory"
+    },
+    {
+      "parameters": {
+        "public": true,
+        "initialMessages": "Hi there! 👋\nMy name is Mipel . Saya akan bantu apa yang kamu ingin tahu atau yang kamu bingungkan untuk pelajaran di sekolah.",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.4,
+      "position": [
+        0,
+        0
+      ],
+      "id": "6113e718-ff32-45aa-b804-44f43b834011",
+      "name": "When chat message received",
+      "webhookId": "2a64508a-c9d5-430d-90e1-7590bfbb36bc"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Groq Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "9b13b6f8-1279-4d8d-a9ed-6b7dd53819d5",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "c3ffa1d4cbb26c2b05663974ddb485f19c62cf7bf2590b2d3e70f45ff002d0fb"
+  },
+  "id": "hIpDN9jdFI2GNLiY",
+  "tags": []
+}
